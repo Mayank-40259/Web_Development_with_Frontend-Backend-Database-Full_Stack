@@ -12,17 +12,22 @@ app.use(cors({
 app.use(express.json());
 
 // .env फाइल से वैल्यूज लेकर MySQL डेटाबेस कनेक्शन बनाना
-const db = mysql.createConnection({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',                  
-    password: process.env.DB_PASSWORD || 'Mayank@BCA',                  
-    database: process.env.DB_NAME || 'portfolio_db',      
-    port: process.env.DB_PORT || '3306',
+// .env फाइल से वैल्यूज लेकर MySQL डेटाबेस कनेक्शन पूल बनाना
 
+const db = mysql.createPool({
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || 'Mayank@BCA',
+    database: process.env.DB_NAME || 'portfolio_db',
+    port: process.env.DB_PORT || '3306',
     ssl: {
-        rejectUnauthorized: false // SSL कनेक्शन के लिए यह सेटिंग जरूरी है, खासकर Vercel पर होस्ट करते समय
-    }     
+        rejectUnauthorized: false
+    },
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
+
 
 db.connect((err) => {
     if (err) {
