@@ -2,7 +2,11 @@ const contactForm = document.getElementById('contact-form');
 const statusMsg = document.getElementById('form-status');
 
 // लोकल कंप्यूटर पर एक्सप्रेस सर्वर का एड्रेस (पोर्ट 5000)
-const LIVE_BACKEND_URL = 'http://localhost:5000'; 
+//const LIVE_BACKEND_URL = 'http://localhost:5000';
+// इसे अपनी script.js की लाइन 5 में बदलें
+
+const LIVE_BACKEND_URL = 'https://vercel.app';
+
 
 if (contactForm && statusMsg) {
     contactForm.addEventListener('submit', async (e) => {
