@@ -17,7 +17,11 @@ const db = mysql.createConnection({
     user: process.env.DB_USER || 'root',                  
     password: process.env.DB_PASSWORD || 'Mayank@BCA',                  
     database: process.env.DB_NAME || 'portfolio_db',      
-    port: 3306                     
+    port: process.env.DB_PORT || '3306',
+
+    ssl: {
+        rejectUnauthorized: false // SSL कनेक्शन के लिए यह सेटिंग जरूरी है, खासकर Vercel पर होस्ट करते समय
+    }     
 });
 
 db.connect((err) => {
